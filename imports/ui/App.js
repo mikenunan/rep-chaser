@@ -1,9 +1,12 @@
+/* eslint-disable react/no-find-dom-node */
+/* jshint esversion: 8 */
+
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
- 
-import { Tasks } from '../api/tasks.js'; 
+
+import { Tasks } from '../api/tasks.js';
 import Task from './Task.js';
 import AccountsUIWrapper from './AccountsUIWrapper.js';
 
@@ -11,7 +14,7 @@ import AccountsUIWrapper from './AccountsUIWrapper.js';
 class App extends Component {
   constructor(props) {
     super(props);
- 
+
     this.state = {
       hideCompleted: false,
     };
@@ -19,17 +22,17 @@ class App extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
- 
+
     // Find the text field via the React ref
     const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
- 
+
     Tasks.insert({
       text,
       createdAt: new Date(), // current time
       owner: Meteor.userId(), // _id of logged in user
       username: Meteor.user().username, // username of logged in user
     });
- 
+
     Meteor.call('tasks.insert', text);
 
     // Clear form
@@ -50,7 +53,7 @@ class App extends Component {
     return filteredTasks.map((task) => {
       const currentUserId = this.props.currentUser && this.props.currentUser._id;
       const showPrivateButton = task.owner === currentUserId;
- 
+
       return (
         <Task
           key={task._id}
@@ -60,13 +63,13 @@ class App extends Component {
       );
     });
   }
- 
+
   render() {
     return (
       <div className="container">
         <header>
           <h1>Todo List</h1>
- 
+
           <label className="hide-completed">
             <input
               type="checkbox"
@@ -76,9 +79,9 @@ class App extends Component {
             />
             Hide Completed Tasks
           </label>
- 
+
           <AccountsUIWrapper />
- 
+
           { this.props.currentUser ?
             <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
               <input
@@ -89,7 +92,7 @@ class App extends Component {
             </form> : ''
           }
         </header>
- 
+
         <ul>
           {this.renderTasks()}
         </ul>

@@ -1,3 +1,5 @@
+/* jshint esversion: 8 */
+
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';

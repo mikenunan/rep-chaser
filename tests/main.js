@@ -1,20 +1,22 @@
-import assert from "assert";
-import "../imports/api/tasks.tests.js";
+/* jshint esversion: 8 */
 
-describe("rep-chaser", function () {
-  it("package.json has correct name", async function () {
-    const { name } = await import("../package.json");
-    assert.strictEqual(name, "rep-chaser");
+import assert from 'assert';
+import '../imports/api/tasks.tests.js';
+
+describe('rep-chaser', function () {
+  it('package.json has correct name', async function () {
+    const { name } = await import('../package.json');
+    assert.strictEqual(name, 'rep-chaser');
   });
 
   if (Meteor.isClient) {
-    it("client is not server", function () {
+    it('client is not server', function () {
       assert.strictEqual(Meteor.isServer, false);
     });
   }
 
   if (Meteor.isServer) {
-    it("server is not client", function () {
+    it('server is not client', function () {
       assert.strictEqual(Meteor.isClient, false);
     });
   }
